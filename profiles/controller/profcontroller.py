@@ -14,6 +14,8 @@ from django.http import StreamingHttpResponse
 import time
 import random
 from django.http import JsonResponse
+from django.shortcuts import render
+from profiles.controller.celerytask import count_words_in_file
 
 #1 Task
 @csrf_exempt
@@ -197,4 +199,16 @@ def delete_posts_if_comments_deleted(request):
         error_obj['message'] = (str(excep) + " - " + str(filename) + ", line_no: " + str(line_number) + str(
                     ', exception_type : {c} '.format(c=type(excep).__name__)))
         return HttpResponse(json.dumps(error_obj, indent=4), content_type='application/json')
+
+@csrf_exempt
+def upload_file(request):
+    if request.method == 'POST' and request.FILES['file']:
+        uploaded_file = request.FILES['file']
+        with open('temp_file.txt', 'wb') as temp_file:
+            for chunk in uploaded_file.chunks():
+                temp_file.write(chunk)
+        result = count_words_in_file.delay('temp_file.txt')
+        return JsonResponse({'task_id': result.id, 'status': 'task enqueued'})
+    else:
+        return JsonResponse({'error': 'File not uploaded'}, status=400)
 

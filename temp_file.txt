@@ -1,0 +1,7 @@
+shedular
+1.Con nu mon date amt compare and insert 
+
+
+
+Detailbtab
+API det dat + tracid ,intrid,URRno ebrefno,cno

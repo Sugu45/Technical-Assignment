@@ -10,10 +10,9 @@ urlpatterns = [
               path('profile_crud', profcontroller.profile_crud, name='profile_crud'),
             #Task 2
               path('stream_sentence/', profcontroller.stream_sentence, name='stream_sentence'),
-            #Task 3
+            #Task 4
               path('cat_list', profcontroller.cat_list, name='cat_list'),
             #Task 5
-              path('list-all-posts', profcontroller.list_all_posts, name='list_all_posts'),
               path('filter-posts-by-title', profcontroller.filter_posts_by_title, name='filter_posts_by_title'),
               path('list-posts-by-recent-comments', profcontroller.list_posts_by_recent_comments,
                    name='list_posts_by_recent_comments'),
@@ -22,5 +21,6 @@ urlpatterns = [
                    name='delete_posts_if_comments_deleted'),
               path('list-posts-with-total-comments', profcontroller.list_posts_with_total_comments,
                    name='list_posts_with_total_comments'),
-
+            #Task 3
+              path('upload', profcontroller.upload_file, name='upload_file')
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
