@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streaming Sentence</title>
+</head>
+<body>
+    <h1>Streaming Sentence</h1>
+    <div id="sentence"></div>
+
+    <script>
+        var sentenceElement = document.getElementById('sentence');
+        var eventSource = new EventSource("{% url 'stream_sentence' %}");
+
+        eventSource.onmessage = function(event) {
+            sentenceElement.textContent += event.data;
+            sentenceElement.scrollTop = sentenceElement.scrollHeight;
+        };
+    </script>
+</body>
+</html>
